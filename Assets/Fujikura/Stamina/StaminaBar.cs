@@ -10,9 +10,12 @@ public class StaminaBar : MonoBehaviour
 
     [SerializeField] Image stamina;
 
-    const float DefoultInterval = 5;
-    const float maxStamina = 10;
-    private float currentStamina = maxStamina;
+
+    [SerializeField] float JumpReduced = 1;
+    [SerializeField] float DefoultInterval = 5;
+    [SerializeField] float maxStamina = 10;
+
+    private float currentStamina = 10;
     private float interval = 0;
 
     private void Start()
@@ -27,7 +30,7 @@ public class StaminaBar : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StaminaDown();
+            StaminaDown(JumpReduced);
         }
 
         stamina.fillAmount = currentStamina / maxStamina;
@@ -44,11 +47,11 @@ public class StaminaBar : MonoBehaviour
         }
     }
 
-    public void StaminaDown()
+    public void StaminaDown(float amount)
     {
         interval = DefoultInterval;
 
-        currentStamina -= 1;
+        currentStamina -= amount;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
     }
 
