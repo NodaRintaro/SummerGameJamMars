@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1367977980587882967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3560528518284707349}
+  - component: {fileID: 6577905605866443123}
+  m_Layer: 0
+  m_Name: PlayBGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3560528518284707349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367977980587882967}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3525670967565667083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6577905605866443123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367977980587882967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d82c5e50ad5a84482e5fd5e5920ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bgmType: 3
 --- !u!1 &2722418298896621092
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +333,7 @@ Transform:
   m_Children:
   - {fileID: 4850878136364716358}
   - {fileID: 8805358308079953325}
+  - {fileID: 3560528518284707349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7520743002255368234
@@ -305,10 +351,22 @@ MonoBehaviour:
   _seAudio: {fileID: 6678731921234594371}
   _bgmAudio: {fileID: 3426068750195362835}
   _seClass:
-  - _seClip: {fileID: 0}
-    _seState: 1
+  - _seClip: {fileID: 8300000, guid: 1ba8a11d306bbff449ea3e311c9eb442, type: 3}
+    _seState: 2
+    _volume: 1
+  - _seClip: {fileID: 8300000, guid: d3bd5024fdaff7345a2864263241daa7, type: 3}
+    _seState: 4
+    _volume: 1
+  - _seClip: {fileID: 8300000, guid: b65dc22ed17993643b0a6575e0da090c, type: 3}
+    _seState: 5
+    _volume: 1
+  - _seClip: {fileID: 8300000, guid: b3f05e558300ef748947f72463f648f9, type: 3}
+    _seState: 6
     _volume: 1
   _bgmClass:
+  - _bgmClip: {fileID: 8300000, guid: 88fcea2ee5007d74a87e7fbc69f4e46a, type: 3}
+    _bgmState: 3
+    _volume: 1
   - _bgmClip: {fileID: 0}
     _bgmState: 1
     _volume: 1
