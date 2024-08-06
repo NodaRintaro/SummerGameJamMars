@@ -34,6 +34,5 @@ public class EnemyMove : MonoBehaviour
 
         transform.localPosition = currentPosition;
     }
-    
 }
 

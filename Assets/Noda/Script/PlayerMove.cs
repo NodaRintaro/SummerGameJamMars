@@ -6,9 +6,11 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField,Header("ジャンプ力")] private float _jumpPower;
 
-    [SerializeField, Header("ゲームオーバーになる高さ")] private float _minPos = 3.5f;
+    [SerializeField, Header("ゲームオーバーになる高さ")] private float _minPos = -3.5f;
 
     [SerializeField, Header("スタミナ減らす量")] private int _damage = 1;
+    
+    [SerializeField,Header("Start時の力")]　private float _firstMovePower = 5;
 
     private bool _isMoving = false;
 
@@ -40,7 +42,7 @@ public class PlayerMove : MonoBehaviour
                 Debug.Log(transform.position.x);
             }
 
-            if(this.gameObject.transform.position.y > _minPos)
+            if(this.gameObject.transform.position.y < _minPos)
             {
                 LoadScene.Instance.ChangeScene("result");
             }
@@ -50,8 +52,7 @@ public class PlayerMove : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _isMoving = true;
-                _rb.velocity = new Vector2(10, _jumpPower);
-                Debug.Log("OnMove");
+                _rb.velocity = new Vector2(_firstMovePower, _jumpPower);
             }
         }
     }
