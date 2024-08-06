@@ -14,6 +14,7 @@ public class StaminaBar : MonoBehaviour
     [SerializeField] float JumpReduced = 1;
     [SerializeField] float DefoultInterval = 5;
     [SerializeField] float maxStamina = 10;
+    [SerializeField] float upStaminaAmount = 0.01f;
 
     private float currentStamina = 10;
     private float interval = 0;
@@ -34,6 +35,12 @@ public class StaminaBar : MonoBehaviour
         }
 
         stamina.fillAmount = currentStamina / maxStamina;
+
+        //スタミナがなくなったら一時的にスタミナを増えなくする
+        if(currentStamina == 0)
+        {
+            interval = 1000;
+        }
     }
     private void FixedUpdate()
     {
@@ -57,7 +64,7 @@ public class StaminaBar : MonoBehaviour
 
     private void StaminaUp()
     {
-        currentStamina += 0.01f;
+        currentStamina += upStaminaAmount;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
     }
 }
