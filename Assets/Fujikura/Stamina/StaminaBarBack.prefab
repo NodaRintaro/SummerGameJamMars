@@ -130,6 +130,7 @@ MonoBehaviour:
   JumpReduced: 1
   DefoultInterval: 5
   maxStamina: 10
+  upStaminaAmount: 0.01
 --- !u!222 &4746962180979755083
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 587129737}
   - component: {fileID: 587129736}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: DescriptionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -872,8 +872,9 @@ GameObject:
   - component: {fileID: 725958293}
   - component: {fileID: 725958292}
   - component: {fileID: 725958291}
+  - component: {fileID: 725958294}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -942,7 +943,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 725958292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 725958294}
+        m_TargetAssemblyTypeName: Button, Assembly-CSharp
+        m_MethodName: OnClickChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: InGame
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &725958292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +994,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725958289}
   m_CullTransparentMesh: 1
+--- !u!114 &725958294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725958289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28e3af583221304dbdc57d406009e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &911558940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1218,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931104851}
   m_CullTransparentMesh: 1
+--- !u!1001 &1134804802
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 395206886824112690, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866036848501661312, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
+      propertyPath: m_Name
+      value: SceneManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: daf8ec2c4adf2c14e9fc7565520c568a, type: 3}
 --- !u!1 &1137013046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,7 +1871,7 @@ GameObject:
   - component: {fileID: 2065106450}
   - component: {fileID: 2065106449}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: Credit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2075,3 +2157,4 @@ SceneRoots:
   - {fileID: 1706980916}
   - {fileID: 1137013049}
   - {fileID: 1625680377}
+  - {fileID: 1134804802}

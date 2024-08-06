@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +31,7 @@ public class StaminaBar : MonoBehaviour
             StaminaDown(JumpReduced);
         }
 
-        stamina.fillAmount = currentStamina / maxStamina;
+        //stamina.fillAmount = currentStamina / maxStamina;
 
         //スタミナがなくなったら一時的にスタミナを増えなくする
         if(currentStamina == 0)
