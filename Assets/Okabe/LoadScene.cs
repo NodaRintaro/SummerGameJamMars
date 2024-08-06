@@ -1,17 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>シーンを変えるためのクラス</summary>
 public class LoadScene : MonoBehaviour
 {
-    private void Start()
+    //シングルトン化
+    public static LoadScene Instance;
+
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 
     //シーンを変える
-    private void ChangeScene(string sceneName)
+    public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
