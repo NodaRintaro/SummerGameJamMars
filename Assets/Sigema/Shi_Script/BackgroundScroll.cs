@@ -7,13 +7,19 @@ public class BackgroundScroll : MonoBehaviour
 {
     [SerializeField, Header("速度")] private float _speed = 5f;
     [SerializeField, Header("背景")] private GameObject _gameObject = default;
-    [SerializeField, Header("停止するかどうか")] private bool _isStop = default;
+    private PlayerMove _playerMove = default;
 
     public float Speed => _speed;
+
+    private void Start()
+    {
+        _playerMove = FindObjectOfType<PlayerMove>();
+    }
 
     private void Update()
     {
         //スクロール
-        _gameObject.transform.Translate(Vector3.left * (Speed * Time.deltaTime));
+        if (_playerMove.IsMoving)
+            _gameObject.transform.Translate(Vector3.left * (Speed * Time.deltaTime));
     }
 }
