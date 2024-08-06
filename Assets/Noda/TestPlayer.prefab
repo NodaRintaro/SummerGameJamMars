@@ -101,7 +101,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6447384992923629274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,4 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movePower: 5
-  _jumpPower: 20
+  _jumpPower: 10
+  _minPos: -3.5
+  _damage: 1
+  _maxPosX: 8
+  _maxPosY: 4
