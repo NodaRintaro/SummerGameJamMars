@@ -26,12 +26,7 @@ public class StaminaBar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StaminaDown(JumpReduced);
-        }
-
-        //stamina.fillAmount = currentStamina / maxStamina;
+        stamina.fillAmount = currentStamina / maxStamina;
 
         //スタミナがなくなったら一時的にスタミナを増えなくする
         if(currentStamina == 0)
@@ -63,5 +58,9 @@ public class StaminaBar : MonoBehaviour
     {
         currentStamina += upStaminaAmount;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+    }
+    public float GetStamina()
+    {
+        return currentStamina;
     }
 }

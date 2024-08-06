@@ -2,33 +2,38 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed_X = 0f;
-    [SerializeField] private float moveDistance_X = 0f;
-    [SerializeField] private float moveSpeed_Y = 0f;
-    [SerializeField] private float moveDistance_Y = 0f;
-    [SerializeField] private BackgroundScroll _backgroundScroll;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveDistance = 3f;
 
-    private Vector3 startPosition;
-    
-    private Vector3 _dir;
+    [SerializeField]private GameObject startingPoint;
+    private bool movingUp = true;
 
-    void Start()
-    {
-        startPosition = transform.position;
-    }
 
     void Update()
     {
-        transform.position += _dir * _backgroundScroll.Speed * Time.deltaTime;
-        
-        float Xoffset = Mathf.PingPong(Time.time * moveSpeed_X, transform.position.x);
+        Vector3 currentPosition = transform.localPosition;
 
-        float Yoffset = Mathf.PingPong(Time.time * moveSpeed_Y, transform.position.x);
+        if (movingUp)
+        {
+            currentPosition.y += moveSpeed * Time.deltaTime;
+            if (currentPosition.y >= startingPoint.transform.position.y + moveDistance)
+            {
+                currentPosition.y = startingPoint.transform.position.y + moveDistance;
+                movingUp = false;
+            }
+        }
+        else 
+        {
+            currentPosition.y -= moveSpeed * Time.deltaTime;
+            if (currentPosition.y <= startingPoint.transform.position.y)
+            {
+                currentPosition.y = startingPoint.transform.position.y;
+                movingUp = true;
+            }
+        }
 
-        if (float.IsNaN(Yoffset)) { Yoffset = 0f; }
-        if (float.IsNaN(Xoffset)) { Xoffset = 0f; }
-        
-        transform.position = startPosition + new Vector3(Xoffset, Yoffset, 0);
+        transform.localPosition = currentPosition;
     }
+    
 }
 
