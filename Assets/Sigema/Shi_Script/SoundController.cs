@@ -17,10 +17,7 @@ public class SoundController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-            Destroy(gameObject);
     }
 
     public void SePlay(SeClass.SE se)
@@ -70,7 +67,18 @@ public class SoundController : MonoBehaviour
         {
             // todo: 要る分だけ追加
             None,
-            Test
+            Test,
+
+            /// <summary> スタミナ不足 </summary>
+            LackOfStamina,
+            ClearSE,
+
+            /// <summary> 敵との接触 </summary>
+            Hit,
+
+            /// <summary> スタートボタンの音 </summary>
+            StartGame,
+            ButtonPush
         }
     }
 
