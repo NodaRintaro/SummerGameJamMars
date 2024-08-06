@@ -7,14 +7,14 @@ public class BackgroundScroll : MonoBehaviour
 {
     [SerializeField, Header("速度")] private float _speed = 5f;
     [SerializeField, Header("背景")] private GameObject _gameObject = default;
-    private PlayerMove _playerMove = default;
+    [SerializeField] private PlayerMove _playerMove;
 
     public float Speed => _speed;
 
-    private void Start()
-    {
-        _playerMove = FindObjectOfType<PlayerMove>();
-    }
+    // private void Start()
+    // {
+    //     _playerMove = FindObjectOfType<PlayerMove>();
+    // }
 
     private void Update()
     {
