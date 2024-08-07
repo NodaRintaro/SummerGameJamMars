@@ -8,7 +8,10 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private GameObject startingPoint;
     private bool movingUp = true;
 
-
+    private void Start()
+    {
+        startingPoint = transform.parent.gameObject;
+    }
     void Update()
     {
         Vector3 currentPosition = transform.localPosition;
