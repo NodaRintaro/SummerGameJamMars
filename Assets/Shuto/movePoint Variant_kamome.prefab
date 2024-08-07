@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8925289950254838854, guid: f8b8d85c5637d094395fb4dedba9d651, type: 3}
       propertyPath: m_Name
-      value: movePoint Variant
+      value: movePoint Variant_kamome
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
