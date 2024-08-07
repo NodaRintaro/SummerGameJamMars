@@ -53,11 +53,12 @@ public class PlayerMove : MonoBehaviour
 
             _playerPos = transform.position; 
 
-            _playerPos.x = Mathf.Clamp(_playerPos.x, -_maxPosX, _maxPosX); 
+            _playerPos.x = Mathf.Clamp(_playerPos.x, -_maxPosX, _maxPosX);
+            _playerPos.y = Mathf.Clamp(_playerPos.y, -_maxPosY, _maxPosY);
             transform.position = new Vector2(_playerPos.x, _playerPos.y);
 
             // オブジェクトの移動処理
-            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0 && this.transform.position.y < _maxPosY)
+            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
