@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountReduced: 1
   sky: 0
+  particle: {fileID: 3513013571430247813, guid: c2ab0db231a103845a61e1562d090ffd, type: 3}
   rb: {fileID: 0}
 --- !u!58 &4280896179047668325
 CircleCollider2D:
