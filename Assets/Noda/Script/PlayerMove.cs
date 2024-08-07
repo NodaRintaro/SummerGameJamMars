@@ -54,7 +54,6 @@ public class PlayerMove : MonoBehaviour
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
                 SoundController.Instance.SePlay(SoundController.SeClass.SE.ButtonPush);
-                Debug.Log(transform.position.x);
             }
 
             if (this.gameObject.transform.position.y < _minPos)

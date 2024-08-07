@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class JsonLoad : MonoBehaviour
@@ -12,7 +13,7 @@ public class JsonLoad : MonoBehaviour
     [Serializable]
     public class TimerData
     {
-        public float _time;
+        public float _clearTime;
     }
 
     [Serializable]
@@ -28,7 +29,7 @@ public class JsonLoad : MonoBehaviour
 
     private void LoadAndDisplayRanking()
     {
-        string path = Path.Combine(Application.persistentDataPath, "clearTimeData.json");
+        var path = Path.Combine(Application.persistentDataPath, "TimeData.json");
 
         if (File.Exists(path))
         {
@@ -36,13 +37,34 @@ public class JsonLoad : MonoBehaviour
 
             var dataList = JsonUtility.FromJson<TimerDataList>(json);
 
-            for (var i = 0; i < _rankingTexts.Length; i++)
+            if (dataList._timerDataList.Count > 0)
             {
-                if (i < dataList._timerDataList.Count)
+                dataList._timerDataList.Sort((x, y) => x._clearTime.CompareTo(y._clearTime));
+
+                // 配列内の数値をデバッグログで表示
+                Debug.Log("デバッグ: タイムデータの内容を確認");
+                foreach (var timerData in dataList._timerDataList)
                 {
-                    _rankingTexts[i].text = $"{i + 1}. {dataList._timerDataList[i]._time:F1}秒";
+                    Debug.Log($"Time: {timerData._clearTime:F1}秒");
                 }
-                else
+
+                for (var i = 0; i < _rankingTexts.Length; i++)
+                {
+                    if (i < dataList._timerDataList.Count)
+                    {
+                        _rankingTexts[i].text = $"{i + 1}. {dataList._timerDataList[i]._clearTime:F1}秒";
+                        Debug.Log(_rankingTexts[i].text = $"{i + 1}. {dataList._timerDataList[i]._clearTime:F1}秒");
+                    }
+                    else
+                    {
+                        _rankingTexts[i].text = $"{i + 1}. ---";
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("データが空です。");
+                for (var i = 0; i < _rankingTexts.Length; i++)
                 {
                     _rankingTexts[i].text = $"{i + 1}. ---";
                 }
