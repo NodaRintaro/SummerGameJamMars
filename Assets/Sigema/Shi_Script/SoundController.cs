@@ -65,11 +65,13 @@ public class SoundController : MonoBehaviour
 
         public enum SE
         {
-            // todo: 要る分だけ追加
             None,
             Test,
 
-            /// <summary> スタミナ不足 </summary>
+            /// <summary> スタミナ0になった </summary>
+            Stamina0,
+
+            /// <summary> スタミナ切れそう </summary>
             LackOfStamina,
             ClearSE,
 
@@ -78,7 +80,18 @@ public class SoundController : MonoBehaviour
 
             /// <summary> スタートボタンの音 </summary>
             StartGame,
-            ButtonPush
+
+            /// <summary> スタートボタンの音 </summary>
+            ButtonPush,
+            Fireworks,
+            LevelUp,
+
+            /// <summary> 着水 </summary>
+            LandingOnTheWater,
+            GameOverSe,
+
+            /// <summary> 飛行音 </summary>
+            FlightSe
         }
     }
 
@@ -99,12 +112,10 @@ public class SoundController : MonoBehaviour
 
         public enum BGM
         {
-            // todo: 要る分だけ追加
             None,
             Test,
             Title,
             InGame,
-            GameOver,
             Clear
         }
     }
