@@ -15,6 +15,8 @@ public class StaminaBar : MonoBehaviour
 
     private float currentStamina = 10;
     private float interval = 0;
+    private bool staminaZero = false;
+    private bool staminaLow = false;
 
     private void Start()
     {
@@ -26,12 +28,32 @@ public class StaminaBar : MonoBehaviour
 
     private void Update()
     {
+
         stamina.fillAmount = currentStamina / maxStamina;
 
         //スタミナがなくなったら一時的にスタミナを増えなくする
         if(currentStamina == 0)
         {
             interval = 1000;
+            if (!staminaZero)
+            {
+                staminaZero = true;
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.Stamina0);
+            }
+            
+        }
+        if(currentStamina < 3)
+        {
+            if (!staminaLow)
+            {
+                staminaLow =true;
+
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.LackOfStamina);
+            }
+        }
+        else
+        {
+            staminaLow =false;
         }
     }
     private void FixedUpdate()

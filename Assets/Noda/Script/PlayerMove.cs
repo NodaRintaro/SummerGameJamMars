@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField,Header("ジャンプ力")] private float _jumpPower;
 
-    [SerializeField, Header("ゲームオーバーになる高さ")] private float _minPos = -3.5f;
+    [SerializeField, Header("落ちたら死ぬ高さのオブジェクト")] private GameObject _seaLevel;
 
     [SerializeField, Header("スタミナ減らす量")] private int _damage = 1;
 
@@ -16,9 +16,13 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField, Header("移動範囲の絶対値Y")] private float _maxPosY;
 
+    [SerializeField, Header("翼")] private GameObject[] _wings;
+
     private SpriteRenderer _spriteRenderer;
 
     private bool _isMoving = false;
+
+    private bool _isInstantiate;
 
     private Vector3 _dir;
 
@@ -26,11 +30,14 @@ public class PlayerMove : MonoBehaviour
 
     private Vector2 _playerPos;
 
+    Animator _animator;
+
     public bool IsMoving => _isMoving;
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
     
     private void Update()
@@ -54,21 +61,29 @@ public class PlayerMove : MonoBehaviour
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
                 SoundController.Instance.SePlay(SoundController.SeClass.SE.ButtonPush);
-                Debug.Log(transform.position.x);
             }
 
-            if (this.gameObject.transform.position.y < _minPos)
+            if(StaminaBar.instance.GetStamina() <= 0 && !_isInstantiate)
             {
-                LoadScene.Instance.ChangeScene("result");
+                foreach (var wing in _wings)
+                {
+                    Instantiate(wing, this.gameObject.transform.position, Quaternion.identity);
+                }
+                _animator.SetBool("IsSutaminaZero",true);
+                _isInstantiate = true;
             }
+
+            if (this.gameObject.transform.position.y < _seaLevel.transform.position.y)
+            {
+                StartCoroutine("ChangeResultScene");
+            }//ToDo:名前変える
         }
         if (!_isMoving)
         {
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
                 _isMoving = true;
                 _rb.velocity = new Vector2(0, _jumpPower);
-                SoundController.Instance.SePlay(SoundController.SeClass.SE.StartGame);
             }
         }
     }
@@ -78,6 +93,7 @@ public class PlayerMove : MonoBehaviour
         if(collision.gameObject.CompareTag("Goal"))
         {
             _isMoving = false;
+            _animator.SetBool("IsGoal", true);
         }//Todo:ゴール時の判定
 
         if (collision.gameObject.CompareTag("Enemy"))
@@ -86,10 +102,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    IEnumerator ChangeColor()
+    private IEnumerator ChangeColor()
     {
         _spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(1f);
         _spriteRenderer.color = new Color(255,255,255,255);
+    }
+
+    private IEnumerator ChangeResultScene()
+    {
+        yield return new WaitForSeconds(3f);
+        LoadScene.Instance.ChangeScene("result");
     }
 }

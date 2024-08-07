@@ -13,7 +13,9 @@ public class ClearTime : MonoBehaviour
     [SerializeField] private Text _timeText;
     //クリア時間を計測する
     private float _time;
-    [SerializeField] private bool _isClear = false;
+    public bool IsClear { get; set; } = false;
+
+    private bool _isSave = false;
 
     //TimeのDataを保存するクラス
     [Serializable]
@@ -39,26 +41,28 @@ public class ClearTime : MonoBehaviour
     private void Update()
     {
         //スタート中は時間を計測する
-        if (_playerMove.IsMoving &&_isClear == false)
+        if (_playerMove.IsMoving &&IsClear == false)
         {
             _timeText.text = _time.ToString("F1");
             _time += Time.deltaTime;
         }
-        if (_isClear)
+        if (IsClear && _isSave == false)
         {
             SaveTimeJson();
         }
     }
-
+    
     //ClearTimeをJSONに保存する
     private void SaveTimeJson()
     {
+        _isSave = true;
         //Dataを指定
         var data = new TimerData();
         data._clearTime = _time;
+        Debug.Log(data._clearTime);
 
         //Pathの指定
-        var path = Path.Combine(Application.persistentDataPath, "clearTimeData.json");
+        var path = Path.Combine(Application.persistentDataPath, "TimeData.json");
 
         TimerDataList dataList;
         if (File.Exists(path))
@@ -75,6 +79,32 @@ public class ClearTime : MonoBehaviour
         var newJson = JsonUtility.ToJson(dataList);
         File.WriteAllText(path,newJson);
         
-        Debug.Log($"JSON Content: {newJson}");
+        Debug.Log($"JSON Content: {newJson}"); // JSONデータが正しく作成されているか確認
+    }
+    
+    // JSONファイルをリセットする
+    [ContextMenu("ResetJSON")]
+    public void ResetTimeJson()
+    {
+        // Pathの指定
+        var path = Path.Combine(Application.persistentDataPath, "TimeData.json");
+
+        // 空のリストで上書きする
+        TimerDataList emptyDataList = new TimerDataList();
+        var newJson = JsonUtility.ToJson(emptyDataList, true);
+        File.WriteAllText(path, newJson);
+
+        Debug.Log("JSONファイルがリセットされました。");
+
+        // リセット後のファイル内容を確認
+        if (File.Exists(path))
+        {
+            var fileContents = File.ReadAllText(path);
+            Debug.Log("リセット後のファイル内容: " + fileContents);
+        }
+        else
+        {
+            Debug.LogError("リセットに失敗しました。ファイルが存在しません。");
+        }
     }
 }

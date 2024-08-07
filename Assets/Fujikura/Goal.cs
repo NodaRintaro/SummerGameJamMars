@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
+    [SerializeField] private ClearTime _clear;
     [SerializeField] ParticleSystem fireWork;
+
+    [SerializeField, Header("ゴールしたときに遷移させる時間")]
+    private float _time = 2f;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("test");
@@ -16,8 +18,9 @@ public class Goal : MonoBehaviour
     }
     private void GoalIn()
     {
+        _clear.IsClear = true;
         fireWork.Play();
-        Invoke("OpenResult", 10f);
+        Invoke(nameof(OpenResult), _time);
     }
     private void OpenResult()
     {
