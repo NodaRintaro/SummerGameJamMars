@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -21,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private bool _isMoving = false;
+
+    private bool _isStop = false;
 
     private bool _isInstantiate;
 
@@ -75,14 +76,15 @@ public class PlayerMove : MonoBehaviour
 
             if (this.gameObject.transform.position.y < _seaLevel.transform.position.y)
             {
-                StartCoroutine("ChangeResultScene");
+                StartCoroutine(ChangeResultScene("GameOver"));
             }//ToDo:–¼‘O•Ï‚¦‚é
         }
         if (!_isMoving)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && _isStop == false)
             {
                 _isMoving = true;
+                _isStop = true;
                 _rb.velocity = new Vector2(0, _jumpPower);
             }
         }
@@ -105,13 +107,15 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator ChangeColor()
     {
         _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
+        _animator.SetBool("IsDamage", true);
+        yield return new WaitForSeconds(0.5f);
         _spriteRenderer.color = new Color(255,255,255,255);
+        _animator.SetBool("IsDamage", false);
     }
 
-    private IEnumerator ChangeResultScene()
+    private IEnumerator ChangeResultScene(string sceneName)
     {
         yield return new WaitForSeconds(3f);
-        LoadScene.Instance.ChangeScene("result");
+        LoadScene.Instance.ChangeScene(sceneName);
     }
 }
