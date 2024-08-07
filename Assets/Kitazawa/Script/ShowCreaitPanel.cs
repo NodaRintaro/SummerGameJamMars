@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// ê‡ñæï∂Çï\é¶Ç∑ÇÈ
@@ -26,8 +27,8 @@ public class ShowCreditPanel : MonoBehaviour
 
     public void OnClick(bool flag)
     {
-        //_isShow = flag;
-        _showPanel.SetActive(false); //ï\é¶
+        _isShow = flag;
+        _showPanel.SetActive(_isShow);//ï\é¶
         Debug.LogWarning($"{_showPanel.name} Clicked!");
     }
 }
