@@ -76,7 +76,7 @@ public class PlayerMove : MonoBehaviour
 
             if (this.gameObject.transform.position.y < _seaLevel.transform.position.y)
             {
-                StartCoroutine("ChangeResultScene");
+                StartCoroutine(ChangeResultScene("GameOver"));
             }//ToDo:–¼‘O•Ï‚¦‚é
         }
         if (!_isMoving)
@@ -113,9 +113,9 @@ public class PlayerMove : MonoBehaviour
         _animator.SetBool("IsDamage", false);
     }
 
-    private IEnumerator ChangeResultScene()
+    private IEnumerator ChangeResultScene(string sceneName)
     {
         yield return new WaitForSeconds(3f);
-        LoadScene.Instance.ChangeScene("result");
+        LoadScene.Instance.ChangeScene(sceneName);
     }
 }
