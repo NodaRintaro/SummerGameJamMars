@@ -7,6 +7,7 @@ public class EnemyHit : MonoBehaviour
 {
     [SerializeField] float amountReduced = 1;
     [SerializeField] bool sky = false;
+    [SerializeField] ParticleSystem particle;
 
     [SerializeField] Rigidbody2D rb;
 
@@ -26,6 +27,9 @@ public class EnemyHit : MonoBehaviour
     void HitPlayer()
     {
         StaminaBar.instance.StaminaDown(amountReduced);
+        ParticleSystem Wing = Instantiate(particle);
+        Wing.transform.position = this.transform.position;
+        Destroy(Wing.gameObject,5.0f);
         
         if(sky)
         {
@@ -37,13 +41,6 @@ public class EnemyHit : MonoBehaviour
         {
             rb.gravityScale = 10;
             Destroy(gameObject, 3f);
-        }
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            HitPlayer();
         }
     }
 }
