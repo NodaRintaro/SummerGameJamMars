@@ -51,7 +51,7 @@ public class ClearTime : MonoBehaviour
             SaveTimeJson();
         }
     }
-
+    
     //ClearTimeをJSONに保存する
     private void SaveTimeJson()
     {
@@ -83,6 +83,7 @@ public class ClearTime : MonoBehaviour
     }
     
     // JSONファイルをリセットする
+    [ContextMenu("ResetJSON")]
     public void ResetTimeJson()
     {
         // Pathの指定
