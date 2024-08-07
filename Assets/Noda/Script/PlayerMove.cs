@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -9,8 +11,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("ゲームオーバーになる高さ")] private float _minPos = -3.5f;
 
     [SerializeField, Header("スタミナ減らす量")] private int _damage = 1;
-    
-    [SerializeField,Header("Start時の力")]　private float _firstMovePower = 5;
+
+    [SerializeField, Header("移動範囲の絶対値X")] private float _maxPosX;
+
+    [SerializeField, Header("移動範囲の絶対値Y")] private float _maxPosY;
+
+    private SpriteRenderer _spriteRenderer;
 
     private bool _isMoving = false;
 
@@ -18,9 +24,12 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody2D _rb;
 
+    private Vector2 _playerPos;
+
     public bool IsMoving => _isMoving;
     private void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
     }
     
@@ -34,25 +43,32 @@ public class PlayerMove : MonoBehaviour
 
             transform.position += _dir * _movePower * Time.deltaTime;
 
+            _playerPos = transform.position; 
+
+            _playerPos.x = Mathf.Clamp(_playerPos.x, -_maxPosX, _maxPosX); 
+            transform.position = new Vector2(_playerPos.x, _playerPos.y);
+
             // オブジェクトの移動処理
-            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0)
+            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0 && this.transform.position.y < _maxPosY)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.ButtonPush);
                 Debug.Log(transform.position.x);
             }
 
-            if(this.gameObject.transform.position.y < _minPos)
+            if (this.gameObject.transform.position.y < _minPos)
             {
                 LoadScene.Instance.ChangeScene("result");
             }
         }
-        else
+        if (!_isMoving)
         {
             if(Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _isMoving = true;
-                _rb.velocity = new Vector2(_firstMovePower, _jumpPower);
+                _rb.velocity = new Vector2(0, _jumpPower);
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.StartGame);
             }
         }
     }
@@ -61,11 +77,19 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Goal"))
         {
-            LoadScene.Instance.ChangeScene("Goal");
-        }
-        if(collision.gameObject.CompareTag("Enemy"))
+            _isMoving = false;
+        }//Todo:ゴール時の判定
+
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            StaminaBar.instance.StaminaDown(_damage);
+            StartCoroutine("ChangeColor");
         }
+    }
+
+    IEnumerator ChangeColor()
+    {
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        _spriteRenderer.color = new Color(255,255,255,255);
     }
 }

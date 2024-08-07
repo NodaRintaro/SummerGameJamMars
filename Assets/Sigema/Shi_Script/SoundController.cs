@@ -17,10 +17,7 @@ public class SoundController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-            Destroy(gameObject);
     }
 
     public void SePlay(SeClass.SE se)
@@ -68,9 +65,33 @@ public class SoundController : MonoBehaviour
 
         public enum SE
         {
-            // todo: 要る分だけ追加
             None,
-            Test
+            Test,
+
+            /// <summary> スタミナ0になった </summary>
+            Stamina0,
+
+            /// <summary> スタミナ切れそう </summary>
+            LackOfStamina,
+            ClearSE,
+
+            /// <summary> 敵との接触 </summary>
+            Hit,
+
+            /// <summary> スタートボタンの音 </summary>
+            StartGame,
+
+            /// <summary> スタートボタンの音 </summary>
+            ButtonPush,
+            Fireworks,
+            LevelUp,
+
+            /// <summary> 着水 </summary>
+            LandingOnTheWater,
+            GameOverSe,
+
+            /// <summary> 飛行音 </summary>
+            FlightSe
         }
     }
 
@@ -91,12 +112,10 @@ public class SoundController : MonoBehaviour
 
         public enum BGM
         {
-            // todo: 要る分だけ追加
             None,
             Test,
             Title,
             InGame,
-            GameOver,
             Clear
         }
     }
