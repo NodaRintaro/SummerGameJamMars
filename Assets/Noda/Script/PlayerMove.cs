@@ -21,6 +21,8 @@ public class PlayerMove : MonoBehaviour
 
     private bool _isMoving = false;
 
+    private bool _isStop = false;
+
     private bool _isInstantiate;
 
     private Vector3 _dir;
@@ -79,9 +81,10 @@ public class PlayerMove : MonoBehaviour
         }
         if (!_isMoving)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && _isStop == false)
             {
                 _isMoving = true;
+                _isStop = true;
                 _rb.velocity = new Vector2(0, _jumpPower);
             }
         }
@@ -104,8 +107,10 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator ChangeColor()
     {
         _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
+        _animator.SetBool("IsDamage", true);
+        yield return new WaitForSeconds(0.5f);
         _spriteRenderer.color = new Color(255,255,255,255);
+        _animator.SetBool("IsDamage", false);
     }
 
     private IEnumerator ChangeResultScene()
