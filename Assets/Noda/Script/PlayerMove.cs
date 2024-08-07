@@ -78,7 +78,6 @@ public class PlayerMove : MonoBehaviour
         if(collision.gameObject.CompareTag("Goal"))
         {
             _isMoving = false;
-            LoadScene.Instance.ChangeScene("Goal");
         }//Todo:ƒS[ƒ‹‚Ì”»’è
 
         if (collision.gameObject.CompareTag("Enemy"))
