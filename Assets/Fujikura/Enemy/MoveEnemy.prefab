@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 584677414162525759}
   - component: {fileID: 2184040344361690981}
   - component: {fileID: 4987833203163423057}
+  - component: {fileID: 6056667644113497638}
   m_Layer: 0
   m_Name: MoveEnemy
   m_TagString: Enemy
@@ -45,10 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecc71a77e4b90448a3d8219a0983845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed_X: 0
-  moveDistance_X: 0
-  moveSpeed_Y: 2
-  moveDistance_Y: 2
+  moveSpeed: 3
+  moveDistance: 3
+  startingPoint: {fileID: 0}
 --- !u!212 &4987833203163423057
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -101,3 +101,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6056667644113497638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6651022623867686971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b02a6d415db2e64fa37c8843c891448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountReduced: 1
+  sky: 1
+  rb: {fileID: 0}
