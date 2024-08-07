@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField, Header("à⁄ìÆîÕàÕÇÃê‚ëŒílY")] private float _maxPosY;
 
-    [SerializeField, Header("à⁄ìÆîÕàÕí¥Ç¶ÇΩÇÁñﬂÇ¡ÇƒÇ≠ÇÈóÕ")] private float _comeBack;
+    private SpriteRenderer _spriteRenderer;
 
     private bool _isMoving = false;
 
@@ -23,19 +24,17 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody2D _rb;
 
-    private Vector2 _currentPos;
-
     private Vector2 _playerPos;
 
     public bool IsMoving => _isMoving;
     private void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
     }
     
     private void Update()
     {
-
         if (_isMoving)
         {
             float x = Input.GetAxis("Horizontal");
@@ -54,6 +53,7 @@ public class PlayerMove : MonoBehaviour
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.ButtonPush);
                 Debug.Log(transform.position.x);
             }
 
@@ -68,6 +68,7 @@ public class PlayerMove : MonoBehaviour
             {
                 _isMoving = true;
                 _rb.velocity = new Vector2(0, _jumpPower);
+                SoundController.Instance.SePlay(SoundController.SeClass.SE.StartGame);
             }
         }
     }
@@ -78,10 +79,18 @@ public class PlayerMove : MonoBehaviour
         {
             _isMoving = false;
             LoadScene.Instance.ChangeScene("Goal");
-        }
-        if(collision.gameObject.CompareTag("Enemy"))
+        }//Todo:ÉSÅ[ÉãéûÇÃîªíË
+
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            StaminaBar.instance.StaminaDown(_damage);
+            StartCoroutine("ChangeColor");
         }
+    }
+
+    IEnumerator ChangeColor()
+    {
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        _spriteRenderer.color = new Color(255,255,255,255);
     }
 }
