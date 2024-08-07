@@ -94,6 +94,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Goal"))
         {
+            _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             _isMoving = false;
             _animator.SetBool("IsGoal", true);
         }//Todo:ƒS[ƒ‹‚Ì”»’è
