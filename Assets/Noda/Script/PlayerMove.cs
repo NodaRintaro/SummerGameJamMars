@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -21,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private bool _isMoving = false;
+
+    private bool _isStop = false;
 
     private bool _isInstantiate;
 
@@ -52,11 +53,12 @@ public class PlayerMove : MonoBehaviour
 
             _playerPos = transform.position; 
 
-            _playerPos.x = Mathf.Clamp(_playerPos.x, -_maxPosX, _maxPosX); 
+            _playerPos.x = Mathf.Clamp(_playerPos.x, -_maxPosX, _maxPosX);
+            _playerPos.y = Mathf.Clamp(_playerPos.y, -_maxPosY, _maxPosY);
             transform.position = new Vector2(_playerPos.x, _playerPos.y);
 
             // オブジェクトの移動処理
-            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0 && this.transform.position.y < _maxPosY)
+            if (Input.GetKeyDown(KeyCode.Space) && StaminaBar.instance.GetStamina() > 0)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower);
                 StaminaBar.instance.StaminaDown(_damage);
@@ -75,14 +77,15 @@ public class PlayerMove : MonoBehaviour
 
             if (this.gameObject.transform.position.y < _seaLevel.transform.position.y)
             {
-                StartCoroutine("ChangeResultScene");
+                StartCoroutine(ChangeResultScene("GameOver"));
             }//ToDo:名前変える
         }
         if (!_isMoving)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && _isStop == false)
             {
                 _isMoving = true;
+                _isStop = true;
                 _rb.velocity = new Vector2(0, _jumpPower);
             }
         }
@@ -92,6 +95,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Goal"))
         {
+            _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             _isMoving = false;
             _animator.SetBool("IsGoal", true);
         }//Todo:ゴール時の判定
@@ -105,13 +109,15 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator ChangeColor()
     {
         _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
+        _animator.SetBool("IsDamage", true);
+        yield return new WaitForSeconds(0.5f);
         _spriteRenderer.color = new Color(255,255,255,255);
+        _animator.SetBool("IsDamage", false);
     }
 
-    private IEnumerator ChangeResultScene()
+    private IEnumerator ChangeResultScene(string sceneName)
     {
         yield return new WaitForSeconds(3f);
-        LoadScene.Instance.ChangeScene("result");
+        LoadScene.Instance.ChangeScene(sceneName);
     }
 }

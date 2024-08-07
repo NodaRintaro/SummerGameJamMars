@@ -26,8 +26,8 @@ public class ShowCreditPanel : MonoBehaviour
 
     public void OnClick(bool flag)
     {
-        //_isShow = flag;
-        _showPanel.SetActive(false); //•\Ž¦
+        _isShow = flag;
+        _showPanel.SetActive(_isShow);//•\Ž¦
         Debug.LogWarning($"{_showPanel.name} Clicked!");
     }
 }
